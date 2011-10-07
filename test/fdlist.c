@@ -35,7 +35,7 @@ test_fdlist()
 	char *relative_name;
 	int found;
 	REQUIRE(found = lc_fdlist_find(
-	    fdlistp, subsystem, classname, "raw", &relative_name));
+				       fdlistp, subsystem, classname, "raw", (const char **)&relative_name));
 
 	CHECK(found == fd);
 	CHECK(strnlen(relative_name, 1) == 0);
@@ -46,7 +46,7 @@ test_fdlist()
 	    fdlistp, subsystem, classname, "raw_cap", fd, rights);
 
 	REQUIRE(found = lc_fdlist_find(
-	    fdlistp, subsystem, classname, "raw_cap", &relative_name));
+				       fdlistp, subsystem, classname, "raw_cap", (const char **) &relative_name));
 
 	cap_rights_t rights_out;
 	CHECK_SYSCALL_SUCCEEDS(cap_getrights, found, &rights_out);
